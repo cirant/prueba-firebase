@@ -15,5 +15,9 @@
     "css-loader": "^0.28.4",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6"
+  },
+  "dependencies": {
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   }
 }
