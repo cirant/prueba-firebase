@@ -1,2 +1,2 @@
-console.log(`prueba de 
-	es6`);
+import "../sass/main.scss";
+

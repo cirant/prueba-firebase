@@ -19,9 +19,18 @@ module.exports = {
             use: {
                 loader: "babel-loader",
                 options: {
-                    presets: ["es2015","react"]
+                    presets: ["es2015", "react"]
                 }
             }
+        }, {
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader"
+            }, {
+                loader: "css-loader"
+            }, {
+                loader: "sass-loader"
+            }]
         }]
     }
 }
