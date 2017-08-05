@@ -7,27 +7,39 @@ export default class App extends React.Component {
     super(props);
 
     this.state={
-    	view: "login2",
+    	view: "login",
     	user: "",
     	list: []
     }
 
     this.handlerGetPicture=this.handlerGetPicture.bind(this);
     this.makeChoose=this.makeChoose.bind(this);
-  }
-
-  componentWillMount() {
-  	this.handlerGetPicture();
+    this.handlerStart=this.handlerStart.bind(this);
   }
 
   makeChoose(value){
-  	console.log("este es la opcion seleccionada ",value);
+
+  	fetch(`https://miapp-b4170.firebaseio.com/users/${this.nameUser}.json`,{
+  		method: 'POST',
+        body: JSON.stringify({
+            picture: value
+        })
+  	})
+  	.then(res=>res.json())
+  	.then(response=>{
+  		// console.log("response ",response)
+  		this.handlerGetPicture();
+  	}).catch(err=>{
+  		// console.log("errior en el fetch", err);
+  		this.handlerGetPicture();
+  	})
+
 
   	this.setState({
   		list : []
   	});
 
-  	this.handlerGetPicture();
+  	// this.handlerGetPicture();
   }
 
   handlerGetPicture(){
@@ -47,35 +59,68 @@ export default class App extends React.Component {
   	})
   }
 
+  handlerStart(){
+
+	  	this.setState({
+	  		view: "main" 
+	  	});
+
+
+	  	fetch("https://miapp-b4170.firebaseio.com/users.json",{
+	  		method: 'POST',
+	        body: JSON.stringify({
+	            name: this.state.user
+	        })
+	  	})
+	  	.then(res=>res.json())
+	  	.then(response=>{
+	  		console.log("response ",response)
+	  		this.nameUser = response.name;
+	  		this.handlerGetPicture();
+	  	}).catch(err=>{
+	  		// console.log("errior en el fetch", err);
+	  		// this.handlerGetPicture();
+	  	})
+
+  }
+
   render() {
 
   	if(this.state.view==="login")
 	    return (
-	      <div>
+	      <div  className="container">
 	      	<h1>Welcome, please enter your name</h1>
 	      	<input type="text" onChange={({target})=>this.setState({user: target.value})} />
-	      	<button onClick={()=>this.setState({view: "start"})}>Start</button>
+	      	<button onClick={this.handlerStart}>Start</button>
 	      </div>
 	    );
 
-	return 	<div>	welcome {this.state.user}
-				<h1>escoger imagen </h1>
+	return 	 <div  className="container form">	
+				<p className="welcome">welcome, {this.state.user}</p>
+				<h1>choose a picture </h1>
 
-				<div>
+				<div className="opt-container">
 					{
 						this.state.list.length>0?
 						this.state.list.map((opt,i)=><OptionPicture key={`key-${i}`} 
 																	handlerGetOption={()=>this.makeChoose(opt.media.m)}
 																	picture={opt.media.m} />)
-						:<div>cargando...</div>
+						:<div>loading...</div>
 					}
 				</div>
+	      		<button onClick={()=>{
+	      			this.setState({
+	      				view: "login",
+				    	user: "",
+				    	list: [] 
+	      			});
+	      		}}>finish</button>
 			</div>
   }
 }
 
 const OptionPicture = (props)=>{
-	return 	<div onClick={props.handlerGetOption}>	
+	return 	<div className="opt" onClick={props.handlerGetOption}>	
 				<img src={props.picture} />
 			</div>
 }

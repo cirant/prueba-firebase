@@ -3,3 +3,51 @@
 body {
 	font-family: 'Roboto', sans-serif;
 }
+
+.container{
+	display: table;
+	margin: auto;
+	border-radius: 3px;
+	box-shadow: 0px 0px 8px rgba(0,0,0,.38);
+	padding: 10px 30px 10px;
+	margin-top: 50px;
+
+	h1{ font-weight: 300}
+
+	%common{
+		display: block;
+		margin: auto;
+	}
+
+	input{
+		@extend %common;
+		margin-bottom: 10px;
+	}
+
+	button { 
+		@extend %common;
+	}
+}
+
+.form{
+	text-align: center;
+	
+
+	button{
+		margin:20px auto;
+	}
+
+	.welcome{
+		text-align: left;
+	}
+
+	.opt-container{
+		display: block;
+
+		.opt{
+			padding: 10px;
+			display: inline-block;
+			vertical-align: middle;
+		}
+	}
+}
