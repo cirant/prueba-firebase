@@ -2,6 +2,7 @@
 
 body {
 	font-family: 'Roboto', sans-serif;
+	background: #F1F7F9;
 }
 
 .container{
@@ -11,6 +12,7 @@ body {
 	box-shadow: 0px 0px 8px rgba(0,0,0,.38);
 	padding: 10px 30px 10px;
 	margin-top: 50px;
+	background: white;
 
 	h1{ font-weight: 300}
 
@@ -48,6 +50,8 @@ body {
 			padding: 10px;
 			display: inline-block;
 			vertical-align: middle;
+			box-shadow: 0px 0px 3px rgba(0,0,0,.38);
+			margin: 8px;
 		}
 	}
 }
